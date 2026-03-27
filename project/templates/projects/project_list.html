@@ -1,0 +1,382 @@
+
+
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CollabWorks – Discover Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            display: flex;
+            height: 100vh;
+        }
+
+        .layout {
+            display: flex;
+        }
+
+       
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            overflow-y: auto;
+            width: 260px;
+            background: linear-gradient(180deg, #0f172a, #020617);
+            color: #cbd5e1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+
+        .nav {
+            flex: 1;
+            padding-top: 50px;
+        }
+
+        .nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            text-decoration: none;
+            color: #cbd5e1;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .nav a.active {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .nav a:hover {
+            background: #1e293b;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #1e293b;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .main {
+            flex: 1;
+            padding: 32px;
+            margin-left: 260px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .top-bar h1 {
+            font-size: 26px;
+            color: #0f172a;
+        }
+
+        .top-bar p {
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .search {
+            width: 260px;
+            padding: 10px 14px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            outline: none;
+        }
+
+        .filter-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-card h3 {
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .filter-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .filter-group h4 {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            margin-right: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .pill.active {
+            background: #2563eb;
+            color: #fff;
+            border-color: #2563eb;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 320px));
+            gap: 24px;
+
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #16a34a;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+
+        .tags span {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 6px 10px;
+            border-radius: 14px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            color: #334155;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 18px;
+
+        }
+
+        .meta {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .spots {
+            background: #fff7ed;
+            color: #ea580c;
+            padding: 4px 8px;
+            border-radius: 10px;
+            margin-left: 6px;
+            font-weight: 600;
+        }
+
+        .btn {
+            background: #0f172a;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+      
+         .profile-section {
+                margin-bottom: 20px;
+                padding-top: 0;
+                border-top: none;
+            }
+        
+    </style>
+</head>
+
+<body>
+    <!-- <div class="layout"> -->
+        <div class="sidebar">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200 transform rotate-3 hover:rotate-0 transition-transform cursor-pointer">
+                    <i class="fas fa-users-rays text-xl"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tighter text-slate-800">
+                    <span class="text-white">Collab</span><span class="text-blue-600">Works</span>
+                </span>
+            </div>
+
+
+            <div class="nav">
+                <a href="#" class="active">Discover</a>
+                <a href="{% url 'all_applications' %}">My Projects</a>
+
+                {% if request.user.role|lower != 'student' %}
+                <a href="{% url 'create_project' %}">Create Project</a>
+                {% endif %}
+
+                <a href="{% url 'accounts:profile' %}">My Profile</a>
+
+            </div>
+
+             <div class="profile-section">
+                <a href="{% url 'accounts:logout' %}" class="nav-menu a">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+
+            <div class="user">
+                <div class="avatar">{{ request.user.username|slice:":1"|upper }}</div>
+                <div>
+                    <strong>{{request.user.username}}</strong><br>
+                    <small>{{request.user.studentprofile.branch}}</small>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="main">
+            <div class="top-bar">
+                <div>
+                    <h1>Discover Projects</h1>
+                    <p>Find your next interdisciplinary collaboration</p>
+                </div>
+                <form method="get" class="p-3 border rounded bg-light shadow-sm">
+                    {{ project_filter.form.as_p }}
+                    <button class="btn btn-sm btn-danger mt-2" type="submit">Submit</button>
+                </form>
+
+            </div>
+
+
+            <div class="filter-card">
+                <h3>Refine Your Search</h3>
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <h4>PROJECT STATUS</h4>
+                        <span class="pill">Recruiting</span>
+                        <span class="pill">In Progress</span>
+                        <span class="pill">Completed</span>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>DISCIPLINES NEEDED</h4>
+                        <span class="pill">Computer Science</span>
+                        <span class="pill">Media Studies</span>
+                        <span class="pill">Fine Arts</span>
+                        <span class="pill">Economics</span>
+                        <span class="pill">Sociology</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="cards">
+                {% for project in project_filter.qs %}
+                <div class="card">
+                    <span class="status 
+                {% if project.status == 'RECRUITING' %}
+                    status-recruiting
+                {% elif project.status == 'IN_PROGRESS' %}
+                    status-in-progress
+                {% else %}
+                    status-completed
+                {% endif %}">{{project.status}}</span>
+                    <h2>{{ project.title }}</h2>
+                    <p>{{ project.description|truncatewords:25 }}</p>
+                    <div class="tags">
+                        {% for s in project.required_skills.all %}
+                        <span class="discipline-tag">{{ s.name }}</span>
+                        {% empty %}
+                        <span>No skills specified.</span>
+                        {% endfor %}
+                    </div>
+                    <div class="card-footer">
+                        <div class="meta">{{project.duration_weeks}}mo <span class="spots">{{project.team_size}}
+                                SPOTS</span></div>
+                        <a class="btn" href="{% url 'project_detail' project.id %}">Details →</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+    <!-- </div> -->
+
+</body>
+
+</html>

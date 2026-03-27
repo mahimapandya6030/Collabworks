@@ -1,0 +1,956 @@
+<!-- <h2>Applicants for {{ project.title }}</h2>
+
+{% for app in applications %}
+  <p>{{ app.student.user.username }}</p>
+{% empty %}
+  <p>No students applied yet.</p>
+{% endfor %} -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Dashboard | CollabHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            /*width: 250px;
+            background-color: #fff;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;*/
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            overflow-y: auto;
+            width: 260px;
+            padding: 24px;
+            display: flex;
+            color: #cbd5e1;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            /*background-color: #fff; */
+            background: linear-gradient(180deg, #0f172a, #020617);
+
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #3a86ff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #3a86ff;
+        }
+
+        .tagline {
+            font-size: 16px;
+            color: #cbd5e1;
+            ;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .org-info {
+            /*  background-color: #f8f9fa; */
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            /*  border-left: 4px solid #3a86ff;*/
+        }
+
+        .org-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #cbd5e1;
+            ;
+            margin-bottom: 5px;
+        }
+
+        .org-meta {
+            font-size: 14px;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .org-meta i {
+            color: #3a86ff;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .nav-menu li {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            ;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #495057;
+            font-size: 17px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            color: #cbd5e1;
+        }
+
+        .nav-menu a:hover {
+            /*   background-color: #f1f3f5; */
+            color: #3a86ff;
+        }
+
+        .nav-menu a.active {
+            /*  background-color: #e7f2ff;*/
+            color: #3a86ff;
+            font-weight: 600;
+        }
+
+        .nav-menu i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .badge {
+            background-color: #3a86ff;
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        .profile-section {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 8px;
+            /*  background-color: #f8f9fa; */
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: #cbd5e1;
+            ;
+        }
+
+        .profile:hover {
+            background-color: #e9ecef;
+        }
+
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #3a86ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #cbd5e1;
+            ;
+        }
+
+        .profile-role {
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+            margin-left: 240px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header-left h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            color: #6c757d;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background-color: #3a86ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #2667d6;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #495057;
+            border: 1px solid #dee2e6;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 24px;
+        }
+
+        .stat-icon.projects {
+            background-color: #e7f2ff;
+            color: #3a86ff;
+        }
+
+        .stat-icon.members {
+            background-color: #f1f8e9;
+            color: #38b000;
+        }
+
+        .stat-icon.active {
+            background-color: #fff3cd;
+            color: #ff9e00;
+        }
+
+        .stat-icon.completed {
+            background-color: #f8d7da;
+            color: #dc3545;
+        }
+
+        .stat-info h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            font-size: 15px;
+            color: #6c757d;
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .view-all {
+            color: #3a86ff;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* Projects Table */
+        .projects-table-container {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .projects-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .projects-table th {
+            background-color: #f8f9fa;
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .projects-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .projects-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .projects-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .project-name {
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .project-disciplines {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .discipline-tag {
+            background-color: #e7f2ff;
+            color: #3a86ff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .status-recruiting {
+            background-color: #f1f8e9;
+            color: #38b000;
+        }
+
+        .status-in-progress {
+            background-color: #fff3cd;
+            color: #ff9e00;
+        }
+
+        .status-completed {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid #dee2e6;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Team Members Grid */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .member-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .member-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .member-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #3a86ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+            margin-right: 20px;
+        }
+
+        .member-info h4 {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+
+        .member-info p {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .member-projects {
+            font-size: 13px;
+            color: #3a86ff;
+            font-weight: 500;
+        }
+
+        /* Recent Activity */
+        .activity-list {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .activity-item {
+            display: flex;
+            padding: 20px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .activity-icon.project {
+            background-color: #3a86ff;
+        }
+
+        .activity-icon.member {
+            background-color: #38b000;
+        }
+
+        .activity-icon.task {
+            background-color: #ff9e00;
+        }
+
+        .activity-content h4 {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+
+        .activity-content p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .activity-time {
+            font-size: 13px;
+            color: #adb5bd;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 1200px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 20px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .logo-area {
+                display: flex;
+                align-items: center;
+            }
+
+            .tagline {
+                margin-bottom: 0;
+                margin-left: 15px;
+            }
+
+            .org-info {
+                display: none;
+            }
+
+            .nav-menu {
+                display: flex;
+                margin-bottom: 0;
+            }
+
+            .nav-menu li {
+                margin-bottom: 0;
+                margin-left: 15px;
+            }
+
+            .profile-section {
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-actions {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .members-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .projects-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .logo-area {
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+
+            .nav-menu {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin-bottom: 15px;
+            }
+
+            .nav-menu li {
+                margin-left: 0;
+            }
+
+            .profile-section {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo">
+                    <!-- <i class="fas fa-project-diagram"></i>
+                    CollabWorks  -->
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200 transform rotate-3 hover:rotate-0 transition-transform cursor-pointer">
+                            <i class="fas fa-users-rays text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-black tracking-tighter text-slate-800">
+                            <span class="text-white">Collab</span><span class="text-blue-600">Works</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="tagline">Organization Dashboard</div>
+            </div>
+
+            <div class="org-info">
+                <div class="org-name">{{request.user.username }}</div>
+                <div class="org-meta">
+                    <span><i class="fas fa-users"></i> {{ team_members }} Members</span>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="{% url 'project-list' %}"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="{% url 'accounts:profile' %}"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+
+            </ul>
+
+            <div class="profile-section">
+                <div class="profile">
+                    <div class="profile-img">{{ request.user.username|slice:":1"|upper }}</div>
+                    <div>
+                        <div class="profile-name">{{ request.user.username }}</div>
+                        <div class="profile-role">Organization Admin</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <div class="header-left">
+                    <h1>Organization Dashboard</h1>
+                    <div class="header-subtitle">Welcome back, {{request.user.username}}. Here's what's happening with
+                        your organization.</div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" id="createnewproject" onclick="window.location.href=this.dataset.url"
+                        data-url="{% url 'create_project'  %}">
+                        <i class="fas fa-plus"></i> New Project
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon projects">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{active_projects}}</h3>
+                        <p>Active Projects</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon members">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ team_members }}</h3>
+                        <p>Team Members</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon active">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ in_progress}}</h3>
+                        <p>In Progress</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon completed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ completed_projects }}</h3>
+                        <p>Completed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- recent projects section -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Projects</h2>
+                </div>
+
+                <div class="projects-table-container">
+                    <table class="projects-table">
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Disciplines</th>
+                                <th>Status</th>
+                                <th>Members</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pro in projects %}
+                            <tr>
+                                <td class="project-name">{{ pro.title }}</td>
+                                <td>
+                                    <div class="project-disciplines">
+                                        {% for skill in pro.required_skills.all %}
+                                        <span class="discipline-tag">{{skill.name}}</span>
+                                        {% empty %}
+                                        <span class="discipline-tag">Not specified</span>
+                                        {% endfor %}
+                                    </div>
+                                </td>
+
+                                <td><span class="status-badge">{{ pro.status }}</span></td>
+                                <td>{{ pro.team_size}}</td>
+                                <td><a href="{% url 'edit_project' pro.id %}" class="action-btn">
+                                        Edit
+                                    </a></td>
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Active Members</h2>
+                        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <div class="members-grid">
+                        {% for member in active_members %}
+                        <div class="member-card">
+                            <div class="member-avatar">{{ member.student__user__username|slice:":2"|upper }}</div>
+                            <div class="member-info">
+                                <h4>{{ member.student__user__username }}</h4>
+                                <p>{{ member.student__department|default:"No department" }}</p>
+                                <div class="member-projects">{{ member.project_count }} Active Projects
+                                    {{ member.project_count|pluralize }}</div>
+                                <div style="margin-top: 10px;">
+                                    <a href="{% url 'accounts:user_profile' member.student__user__username %}"
+                                        class="action-btn">
+                                        View Profile
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        {% empty %}
+                        <p>No active members yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- recent activity -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Activity</h2>
+                        <!-- <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a> -->
+                    </div>
+
+                    <div class="activity-list">
+                        {% for app in applications %}
+                        <div class="activity-item">
+                            <div class="activity-icon project">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>{{ app.student.user.username }} applied</h4>
+                                <p>Project: {{ app.project.title }}</p>
+                                <a href="{% url 'remove_student_from_project' app.project.id app.id %}"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to remove this student?')">
+                                    Remove
+                                </a>
+                                <!-- <p style="color:red">
+                                    DEBUG → App ID: {{ app.id }} | Status: {{ app.status }}
+                                </p> -->
+                                {% if app.status == 'PENDING' %}
+                                <a href="{% url 'application_status' app.id 'accept' %}"
+                                    class="btn btn-success btn-sm">Accept</a>
+                                <a href="{% url 'application_status' app.id 'reject' %}"
+                                    class="btn btn-danger btn-sm">Reject</a>
+
+                                {% elif app.status == 'ACCEPTED' %}
+                                <span class="badge bg-success">Accepted</span>
+                                <a href="{% url 'application_status' app.id 'complete' %}"
+                                    class="btn btn-primary btn-sm">Mark Completed</a>
+
+
+                                {% elif app.status == 'COMPLETED' %}
+                                <span class="badge bg-primary">Completed</span>
+
+
+
+                                {% elif app.status == 'REJECTED' %}
+                                <span class="badge bg-danger">Rejected</span>
+                                {% endif %}
+
+
+                            </div>
+
+                        </div>
+                        {% empty %}
+                        <p class="text-muted">No recent activity.</p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+
+
+    </script>
+</body>
+
+</html>

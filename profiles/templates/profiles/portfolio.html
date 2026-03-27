@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | CollabWorks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .border-b {
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .max-w-7xl {
+            max-width: 1200px;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .h-20 {
+            height: 80px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+
+        .w-10 {
+            width: 40px;
+        }
+
+        .h-10 {
+            height: 40px;
+        }
+
+        .bg-blue-600 {
+            background-color: #3a86ff;
+        }
+
+        .rounded-xl {
+            border-radius: 12px;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .shadow-blue-200 {
+            box-shadow: 0 10px 15px -3px rgba(58, 134, 255, 0.2);
+        }
+
+        .transform {
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        }
+
+        .rotate-3 {
+            transform: rotate(3deg);
+        }
+
+        .hover\:rotate-0:hover {
+            transform: rotate(0deg);
+        }
+
+        .transition-transform {
+            transition-property: transform;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .font-black {
+            font-weight: 900;
+        }
+
+        .tracking-tighter {
+            letter-spacing: -0.05em;
+        }
+
+        .text-slate-800 {
+            color: #1e293b;
+        }
+
+        .text-blue-600 {
+            color: #3a86ff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .md\:flex {
+            display: flex;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+            text-decoration: none;
+        }
+
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-slate-500 {
+            color: #64748b;
+        }
+
+        .hover\:text-slate-800:hover {
+            color: #1e293b;
+        }
+
+        .transition-colors {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .nav-link-active {
+            color: #3a86ff;
+        }
+
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #3a86ff;
+            border-radius: 1px;
+        }
+
+        .sm\:block {
+            display: block;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .text-slate-600 {
+            color: #475569;
+        }
+
+        .hover\:text-blue-600:hover {
+            color: #3a86ff;
+        }
+
+        .bg-slate-900 {
+            background-color: #1e293b;
+        }
+
+        .px-5 {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+
+        .py-2\.5 {
+            padding-top: 0.625rem;
+            padding-bottom: 0.625rem;
+        }
+
+        .rounded-xl {
+            border-radius: 12px;
+        }
+
+        .hover\:bg-slate-800:hover {
+            background-color: #334155;
+        }
+
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .active\:scale-95:active {
+            transform: scale(0.95);
+        }
+
+        /* Main Portfolio Container */
+        .portfolio-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #3a86ff 0%, #6a9eff 100%);
+            border-radius: 24px;
+            padding: 60px 50px;
+            color: white;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3a86ff 0%, #6a9eff 100%);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(58, 134, 255, 0.2);
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .profile-role {
+            color: #3a86ff;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .profile-location {
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3a86ff;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Bio Section */
+        .bio-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: #3a86ff;
+        }
+
+        .bio-content {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .bio-content p {
+            margin-bottom: 15px;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-category {
+            margin-bottom: 30px;
+        }
+
+        .skill-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: #eff6ff;
+            color: #3a86ff;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #cfe2ff;
+        }
+
+        .skill-tag i {
+            font-size: 14px;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            margin-bottom: 40px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .project-header {
+            padding: 25px 25px 15px;
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .project-footer {
+            padding: 20px 25px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-status {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-active {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .project-link {
+            color: #3a86ff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .project-link:hover {
+            color: #2563eb;
+        }
+
+        /* Resume Section */
+        .resume-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .resume-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .resume-download {
+            background: #eff6ff;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .download-icon {
+            width: 80px;
+            height: 80px;
+            background: #3a86ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .download-btn {
+            background: #3a86ff;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .download-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .experience-item {
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .experience-date {
+            color: #3a86ff;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .experience-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+
+        .experience-company {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .experience-description {
+            color: #475569;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Links Section */
+        .links-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+
+        }
+
+        .link-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            border-color: #3a86ff;
+            background: white;
+            box-shadow: 0 8px 25px rgba(58, 134, 255, 0.1);
+        }
+
+        .link-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .link-icon.github {
+            background: #333;
+        }
+
+        .link-icon.linkedin {
+            background: #0077b5;
+        }
+
+        .link-icon.portfolio {
+            background: #6a9eff;
+        }
+
+        .link-icon.email {
+            background: #ea4335;
+        }
+
+        .link-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .link-url {
+            color: #64748b;
+            font-size: 14px;
+            word-break: break-all;
+        }
+
+        /* Footer */
+        .portfolio-footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 40px 30px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .profile-card,
+            .bio-section,
+            .skills-section,
+            .projects-section,
+            .resume-section,
+            .links-section {
+                padding: 30px 20px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hidden.md\:flex {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass border-b border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200 transform rotate-3 hover:rotate-0 transition-transform cursor-pointer"
+                    onclick="window.location.href='index.html'">
+                    <i class="fas fa-users-rays text-xl"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tighter text-slate-800">
+                    Collab<span class="text-blue-600">Works</span>
+                </span>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="{% url 'core:home' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">Home</a>
+                <a href="{% url 'project-list' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">Discover</a>
+                <a href="{% url 'all_applications' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">My
+                    Projects</a>
+
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center cursor-pointer">
+                        <i class="fas fa-user text-blue-600"></i>
+                    </div>
+                </div>
+                <button onclick="window.location.href=this.dataset.url" data-url="{% url 'accounts:logout' %}"
+                    class="hidden sm:block text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors">Logout</button>
+
+                <!-- <button onclick="window.location.href='logout.html'" class="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors">Logout</button> -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Portfolio Content -->
+    <div class="portfolio-container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">{{ student.user.username }}’s Portfolio</h1>
+                <p class="hero-subtitle">{{ student.bio|truncatewords:20 }}</p>
+            </div>
+            <div class="hero-pattern"></div>
+        </div>
+
+        <!-- Profile & Bio Section -->
+        <div class="profile-section">
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-avatar">AJ</div>
+                <h2 class="profile-name">{{ student.user }}</h2>
+                <div class="profile-role">{{ student.branch }} student</div>
+                <div class="profile-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ student.college }}
+                </div>
+
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ projects.count}}</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Skills</div>
+                    </div>
+                </div>
+
+                <!-- <button class="download-btn" onclick="downloadResume()">
+                    <i class="fas fa-download"></i>
+                    Download Resume
+                </button> -->
+                {% if student.resume %}
+                <a href="{{ student.resume.url }}" class="download-btn" download>
+                    <i class="fas fa-download"></i>
+                    Download Resume
+                </a>
+                {% endif %}
+            </div>
+
+            <!-- Bio Section -->
+            <div class="bio-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Bio
+                </h2>
+                <div class="bio-content">
+                    <!-- <p>I'm a passionate Computer Science student at Stanford University with a strong interest in
+                        interdisciplinary collaboration, artificial intelligence, and sustainable technology solutions.
+                    </p>
+
+                    <p>Through CollabWorks, I've had the opportunity to work on diverse projects that bridge technology
+                        with environmental science, healthcare, and social impact initiatives. I believe that the most
+                        innovative solutions emerge at the intersection of different disciplines.</p>
+
+                    <p>Currently, I'm focused on developing AI-powered tools for social good and exploring how
+                        technology can be leveraged to address pressing global challenges. I'm always excited to connect
+                        with fellow innovators and explore new collaborative opportunities.</p> -->
+                    <p>{{ student.bio }}</p>
+
+                    <!-- <p><strong>Academic Focus:</strong> Machine Learning, Data Science, Human-Computer Interaction</p>
+                    <p><strong>Interests:</strong> Sustainable Tech, EdTech, Healthcare Innovation</p>
+                    <p><strong>Availability:</strong> Open to new collaborative projects</p> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="skills-section">
+            <h2 class="section-title">
+                <i class="fas fa-tools"></i>
+                Skills & Expertise
+            </h2>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="category-title">Technical Skills</h3>
+                    <div class="skills-list">
+
+                        <div class="skill-category">
+                            <div class="skills-list">
+                                {% for skill in student.skills.all %}
+                                {% if skill.category == "TECH" %}
+                                <div class="skill-tag">
+                                    <i class="fas fa-code"></i> {{ skill.name }}
+                                </div>
+                                {% endif %}
+                                {% empty %}
+                                <p>No technical skills added</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title">Soft Skills</h3>
+                    <div class="skills-list">
+                        <div class="skill-category">
+                            <div class="skills-list">
+                                {% for skill in student.skills.all %}
+                                {% if skill.category == "SOFT" %}
+                                <div class="skill-tag">
+                                    <i class="fas fa-users"></i> {{ skill.name }}
+                                </div>
+                                {% endif %}
+                                {% empty %}
+                                <p>No soft skills added</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title">Tools & Technologies</h3>
+                    <div class="skills-list">
+                        <div class="skill-category">
+                            <div class="skills-list">
+                                {% for skill in student.skills.all %}
+                                {% if skill.category == "TOOLS" %}
+                                <div class="skill-tag">
+                                    <i class="fas fa-tools"></i> {{ skill.name }}
+                                </div>
+                                {% endif %}
+                                {% empty %}
+                                <p>No tools added</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="projects-section">
+            <div class="skills-section">
+                <h2 class="section-title">
+                    <i class="fas fa-project-diagram"></i>
+                    Featured Projects
+                </h2>
+
+                <div class="projects-grid">
+
+                    {% for app in projects %}
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">{{app.title}}</h3>
+                            <p class="project-description">{{app.description}}</p>
+                            <div class="project-tags">
+                                {% for skill in student.skills.all %}
+                                <span class="project-tag">{{skill.name}}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="project-footer">
+                            <span class="project-status status-active">{{ app.status }}</span>
+                            <a href="#" class="project-link">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Resume Section -->
+        <!-- <div class="resume-section">
+            <div class="resume-download">
+                <div class="download-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 700; color: #1e293b; margin-bottom: 10px;">Download Resume
+                </h3>
+                <p style="color: #64748b; margin-bottom: 15px;">Get a detailed overview of my education, experience,
+                    and
+                    qualifications.</p>
+                <button class="download-btn" onclick="downloadResume()">
+                    <i class="fas fa-download"></i>
+                    Download PDF
+                </button>
+            </div>
+
+            <div>
+                <h2 class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    Experience
+                </h2>
+
+                <div class="experience-list">
+                    <div class="experience-item">
+                        <div class="experience-date">2023 - Present</div>
+                        <h3 class="experience-title">AI Research Assistant</h3>
+                        <div class="experience-company">Stanford AI Lab</div>
+                        <p class="experience-description">Conducting research on ethical AI applications and
+                            developing
+                            machine learning models for social impact projects.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-date">2022 - 2023</div>
+                        <h3 class="experience-title">Software Development Intern</h3>
+                        <div class="experience-company">TechForGood Inc.</div>
+                        <p class="experience-description">Developed features for an education platform used by
+                            underserved communities, focusing on accessibility and performance.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="experience-date">2021 - 2022</div>
+                        <h3 class="experience-title">Data Analyst</h3>
+                        <div class="experience-company">Sustainable Futures Lab</div>
+                        <p class="experience-description">Analyzed environmental impact data and created
+                            visualizations
+                            for sustainability research publications.</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Links Section -->
+        <div class="links-section">
+            <h2 class="section-title">
+                <i class="fas fa-link"></i>
+                Connect With Me
+            </h2>
+
+            <div class="links-grid">
+                {% if student.github %}
+                <a href="{{student.github }}" target="_blank" class="link-card">
+                    <div class="link-icon github">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="link-title">GitHub</h3>
+                    <p class="link-url">{{student.github }}</p>
+                </a>
+                {% else %}
+                <div class="link-card" style="opacity: 0.6; cursor: not-allowed;">
+                    <div class="link-icon github">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="link-title">GitHub</h3>
+                    <p class="link-url">Not added</p>
+                </div>
+                {% endif %}
+
+                {% if student.linkedin %}
+                <a href="{{student.linkedin}}" target="_blank" class="link-card">
+                    <div class="link-icon linkedin">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3 class="link-title">LinkedIn</h3>
+                    <p class="link-url">{{student.linkedin}}</p>
+                </a>
+                {% else %}
+                <div class="link-card" style="opacity: 0.6; cursor: not-allowed;">
+                    <div class="link-icon linkedin">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3 class="link-title">LinkedIn</h3>
+                    <p class="link-url">Not added</p>
+                </div>
+                {% endif %}
+
+
+                {% if student.personal_portfolio %}
+                <a href="{{student.personal_portfolio}}" target="_blank" class="link-card">
+                    <div class="link-icon portfolio">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="link-title">Personal Portfolio</h3>
+                    <p class="link-url">{{ student.personal_portfolio}}</p>
+                </a>
+                {% else %}
+                <div class="link-card" style="opacity: 0.6; cursor: not-allowed;">
+                    <div class="link-icon portfolio">
+                        <i class="fab fa-globe"></i>
+                    </div>
+                    <h3 class="link-title">Personal Portfolio</h3>
+                    <p class="link-url">Not added</p>
+                </div>
+                {% endif %}
+
+
+                <a href="mailto:{{ student.user.email }}" class="link-card">
+                    <div class="link-icon email">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="link-title">Email</h3>
+                    <p class="link-url">{{ student.email }}</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="portfolio-footer">
+            <p>© 2024 CollabWorks Portfolio. All rights reserved.</p>
+            <p style="font-size: 14px; margin-top: 10px;">This portfolio is automatically generated from your
+                CollabWorks profile and activities.</p>
+        </div>
+    </div>
+
+    <script>
+        // Download resume function
+        function downloadResume() {
+            alert('Downloading resume... (In a real app, this would trigger a PDF download)');
+            // In real app: window.location.href = '/download-resume/';
+        }
+
+        // Project link handlers
+        document.querySelectorAll('.project-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const projectTitle = this.closest('.project-card').querySelector('.project-title').textContent;
+                alert(`Viewing details for: ${projectTitle}\n(In a real app, this would navigate to the project page)`);
+            });
+        });
+
+        // Social link handlers
+        document.querySelectorAll('.link-card').forEach(link => {
+            link.addEventListener('click', function (e) {
+                // Allow default behavior for external links
+                // In a real app, you might want to track these clicks
+                console.log(`Navigating to: ${this.querySelector('.link-url').textContent}`);
+            });
+        });
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const sections = document.querySelectorAll('.skills-section, .projects-section, .resume-section, .links-section');
+
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (sectionTop < windowHeight * 0.85) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Set initial state for animations
+        document.querySelectorAll('.skills-section, .projects-section, .resume-section, .links-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        // Trigger animations on load and scroll
+        window.addEventListener('load', () => {
+            setTimeout(animateOnScroll, 100);
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+
+</html>

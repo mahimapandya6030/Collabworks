@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabHub - Interdisciplinary Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+
+
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .left-panel {
+
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px 15px;
+            height: fit-content;
+        }
+
+        .right-panel {
+            flex: 2;
+            min-width: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px 15px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin: 20px 0 10px 0;
+        }
+
+        .section-title {
+            color: #3498db;
+            font-size: 20px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .education-section {
+            margin-bottom: 30px;
+        }
+
+        .category-list {
+            list-style-type: none;
+            margin-left: 10px;
+        }
+
+        .category-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .category-list li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 20px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+
+        .project-item {
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 4px solid #3498db;
+            font-weight: 500;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-pill {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .add-skill {
+            background-color: #f0f0f0;
+            color: #777;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 1px dashed #aaa;
+            cursor: pointer;
+        }
+
+        .add-skill:hover {
+            background-color: #e0e0e0;
+        }
+
+        .team-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .team-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .team-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .team-item span {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+
+        .profile-info h4 {
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+
+        .profile-info p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* Right Panel Styles */
+        .page-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .example-text {
+            color: #95a5a6;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .textarea-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 25px 0;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-panel,
+            .right-panel {
+                min-width: 100%;
+            }
+
+            .team-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="left-panel">
+            <h1>{{project.title}}</h1>
+
+            <div class="education-section">
+
+            </div>
+            <h2 class="section-title">Discussion Projects</h2>
+            <h3>My Projects</h3>
+            <div class="project-item">Create Project</div>
+            <div class="project-item">My Profile</div>
+
+
+
+            <div class="profile-section">
+                <div class="profile-avatar">{{ request.user.username|slice:":1"|upper }}</div>
+                <div class="profile-info">
+                    <h4>{{ project.user }}</h4>
+                    <p>{{request.user.username}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel (Project Creation Form) -->
+        <div class="right-panel">
+            <div class="page-header">
+                <div class="logo">CollabHub</div>
+                <h2>Interdisciplinary Projects</h2>
+            </div>
+
+            <h1>Create New Project</h1>
+            <p>Post an interdisciplinary project and find talented collaborators</p>
+
+            <div class="divider"></div>
+
+            <h2 class="section-title">Basic Information</h2>
+
+            <form id="projectForm" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="projectTitle">Project Title</label>
+                    <input type="text" name="title" id="projectTitle" class="form-control"
+                        placeholder="e.g., AI-Powered Community Art Installation">
+                </div>
+
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea id="projectDescription" name="description" class="form-control textarea-control"
+                        placeholder="Describe your project, its goals, and what makes it exciting..."></textarea>
+                </div>
+
+
+                <div class="divider"></div>
+                <h2 class="section-title">Expected Deliverables</h2>
+
+                <div class="form-group">
+                    <textarea id="deliverables" name="deliverables" class="form-control textarea-control"
+                        placeholder="What will the team create? (e.g., prototype, research paper, art exhibition)"></textarea>
+                    <p class="example-text">List the expected outcomes or final products of the project</p>
+                </div>
+
+                <h2 class="section-title">Skills Needed</h2>
+
+                <div class="skills-container">
+                    <div class="add-skill">Add Skill</div>
+                </div>
+
+                <input type="hidden" name="required_skills" id="hidden_skills">
+
+
+                <h2 class="section-title">Team Details</h2>
+                <div class="team-details">
+                    <div class="team-item">
+                        <strong>Team Size Goal</strong>
+                        <input type="text" name="team_size" id="projectTitle" class="form-control" placeholder="">
+                    </div>
+                    <div class="team-item">
+                        <strong>Timeline</strong>
+                        <input type="text" name="duration_weeks" id="projectTitle" class="form-control" placeholder="">
+
+                        <div class="team-item">
+                            <strong>Meeting Format</strong>
+                            <select name="meeting_format" class="form-control">
+                                <option value="ONLINE">Online</option>
+                                <option value="IN_PERSON">In Person</option>
+                                <option value="HYBRID">Hybrid</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status" class="form-label">Status</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="">Select status</option>
+                                <option value="OPEN">Open</option>
+                                <option value="IN_PROGRESS">In Progress</option>
+                                <option value="COMPLETED">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="submit-btn">Create Project</button>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.add-skill').addEventListener('click', function () {
+            const skillName = prompt("Enter a skill to add:");
+            if (skillName && skillName.trim() !== "") {
+                const skillsContainer = document.querySelector('.skills-container');
+                const newSkill = document.createElement('div');
+                newSkill.className = 'skill-pill';
+                newSkill.textContent = skillName.trim();
+                skillsContainer.insertBefore(newSkill, this);
+            }
+        });
+
+        /*   document.querySelector('.submit-btn').addEventListener('click', function () {
+               const title = document.getElementById('projectTitle').value;
+               const description = document.getElementById('projectDescription').value;
+   
+               if (!title || !description) {
+                   alert("Please fill in the project title and description.");
+                   return;
+               }
+               alert("Project created successfully!");
+           });*/
+
+
+
+        const skillList = [];
+
+        document.querySelector('.add-skill').addEventListener('click', function () {
+            const skill = prompt("Enter a skill:");
+            if (skill && skill.trim() !== "") {
+                skillList.push(skill.trim());
+                const newDiv = document.createElement('div');
+                newDiv.textContent = skill.trim();
+                newDiv.className = 'skill-pill';
+                this.parentNode.insertBefore(newDiv, this);
+            }
+        });
+
+        document.getElementById('projectForm').addEventListener('submit', function () {
+            const hiddenInput = document.getElementById('hidden_skills');
+            hiddenInput.value = skillList.join(',');  // send comma-separated string
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,775 @@
+<!-- 
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .container {
+            width: 450px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 12px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .skills-box {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Edit Profile</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            {% if skill_form %}
+            <div class="skills-box">
+                <label>Add Skill</label>
+                {{ skill_form.new_skill }}
+            </div>
+            {% endif %}
+
+            <button class="btn" type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>
+
+ -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabHub - Edit Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 10px 5px;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .left-panel {
+            flex: 1;
+            min-width: 280px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 15px 10px;
+            height: fit-content;
+        }
+
+        .right-panel {
+            flex: 2;
+            min-width: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 15px 10px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #34495e;
+            margin: 20px 0 10px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin: 15px 0 8px 0;
+        }
+
+        .section-title {
+            color: #3498db;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        .edit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .edit-badge {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .education-section {
+            margin-bottom: 25px;
+        }
+
+        .category-list {
+            list-style-type: none;
+            margin-left: 5px;
+        }
+
+        .category-list li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .category-list li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 15px 0;
+        }
+
+        .project-item {
+            background-color: #f8f9fa;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 4px solid #3498db;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .project-item.active {
+            background-color: #e3f2fd;
+            border-left-color: #1565c0;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .skill-pill {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .skill-pill .remove-skill {
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .skill-pill .remove-skill:hover {
+            opacity: 1;
+        }
+
+        .add-skill {
+            background-color: #f0f0f0;
+            color: #777;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px dashed #aaa;
+            cursor: pointer;
+        }
+
+        .add-skill:hover {
+            background-color: #e0e0e0;
+        }
+
+        .team-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 12px;
+        }
+
+        .team-item {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .team-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .team-item span {
+            color: #555;
+            font-size: 15px;
+        }
+
+        .team-item input,
+        .team-item select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            margin-top: 5px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .profile-avatar {
+            width: 45px;
+            height: 45px;
+            background-color: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 12px;
+        }
+
+        .profile-info h4 {
+            color: #2c3e50;
+            margin-bottom: 3px;
+            font-size: 16px;
+        }
+
+        .profile-info p {
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+
+        /* Right Panel Styles */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #3498db;
+            margin-right: 8px;
+        }
+
+        .back-link {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #2c3e50;
+            font-size: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .example-text {
+            color: #95a5a6;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .textarea-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #555;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 20px 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-active {
+            background-color: #d5f4e6;
+            color: #27ae60;
+        }
+
+        .status-draft {
+            background-color: #fef9e7;
+            color: #f39c12;
+        }
+
+        .collaborators-list {
+            margin-top: 15px;
+        }
+
+        .collaborator {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .collaborator-avatar {
+            width: 35px;
+            height: 35px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+
+        .collaborator-info h5 {
+            color: #2c3e50;
+            margin-bottom: 2px;
+            font-size: 15px;
+        }
+
+        .collaborator-info p {
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+
+        .collaborator-role {
+            margin-left: auto;
+            padding: 4px 10px;
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .left-panel,
+            .right-panel {
+                min-width: 100%;
+                padding: 15px;
+            }
+
+            .team-details {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 8px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            .left-panel,
+            .right-panel {
+                padding: 12px 8px;
+                border-radius: 8px;
+            }
+
+            .container {
+                gap: 12px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 2px;
+            }
+
+            .left-panel,
+            .right-panel {
+                padding: 10px 5px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Right Panel (Project edit form) -->
+        <div class="right-panel">
+            <div class="page-header">
+                <div class="logo-section">
+                    <div class="logo">CollabHub</div>
+                    <h2>Edit Project</h2>
+                </div>
+                <a href="#" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Projects
+                </a>
+            </div>
+
+            <div class="edit-header">
+                <h1>AI-Powered Community Art Installation</h1>
+                <div class="status-badge status-draft">Draft</div>
+            </div>
+
+            <p>Make changes to your project details, deliverables, and requirements.</p>
+
+            <div class="divider"></div>
+
+            <h2 class="section-title">Basic Information</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="projectTitle">Project Title</label>
+                    <input type="text" name="title" id="projectTitle" class="form-control" value="{{ project.title }}">
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea name="description" id="projectDescription"
+                        class="form-control textarea-control">{{project.description}}</textarea>
+
+                    <div class="divider"></div>
+
+
+
+
+                    <div class="form-group">
+                        <label>Required Skills (comma separated)</label>
+                        <input type="text" name="skills" class="form-control"
+                            value="{% for s in project.required_skills.all %}{{ s.name }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+                    </div>
+
+
+                    <div class="divider"></div>
+
+                    <h2 class="section-title">Project Timeline</h2>
+                    <div class="form-group">
+                        <label for="weeks">Duration Weeks</label>
+                        <input type="text" name="duration_weeks" class="form-control"
+                            value="{{project.duration_weeks}}">
+                    </div>
+
+                    <div class="form-group">
+
+                    <label for="weeks">Accepted students</label>
+                    {% for app in accepted_students %}
+                        <div>
+                            <p>{{ app.student.user.username }}</p>
+
+                            <a href="{% url 'remove_student_from_project' project.id app.id %}"
+                            onclick="return confirm('Are you sure you want to remove this student?')"
+                            style="color: red; text-decoration: none; font-weight: bold;">
+                                Remove
+                            </a>
+                        </div>
+                    {% endfor %}
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="teamsize">Team Size</label>
+                        <input type="text" name="team_size" class="form-control" value="{{project.team_size}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectStatus">Project Status</label>
+                        <select name="status" class="form-control">
+                            <option value="ACCEPTED" {% if project.status == "ACCEPTED" %}selected{% endif %}>Active
+                            </option>
+                            <option value="COMPLETED" {% if project.status == "COMPLETED" %}selected{% endif %}>Completed
+                            </option>
+                            <option value="PENDING" {% if project.status == "PENDING" %}selected{% endif %}>On Hold
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Meeting Format</label>
+                        <select name="meeting_format" class="form-control">
+                            <option value="ONLINE" {% if project.meeting_format == "ONLINE" %}selected{% endif %}>Online
+                            </option>
+                            <option value="IN PERSON" {% if project.meeting_format == "IN PERSON" %}selected{% endif %}>
+                                Offline</option>
+                            <option value="HYBRID" {% if project.meeting_format == "HYBRID" %}selected{% endif %}>Hybrid
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="deleteBtn">Delete Project</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.remove-skill').forEach(removeBtn => {
+            removeBtn.addEventListener('click', function () {
+                const skillPill = this.parentElement;
+                skillPill.style.opacity = '0';
+                setTimeout(() => {
+                    skillPill.remove();
+                }, 300);
+            });
+        });
+
+        document.querySelector('.add-skill').addEventListener('click', function () {
+            const skillName = prompt("Enter a new skill:");
+            if (skillName && skillName.trim() !== "") {
+                const skillsContainer = document.querySelector('.skills-container');
+                const newSkill = document.createElement('div');
+                newSkill.className = 'skill-pill';
+                newSkill.innerHTML = `${skillName.trim()} <span class="remove-skill">×</span>`;
+
+                newSkill.querySelector('.remove-skill').addEventListener('click', function () {
+                    const skillPill = this.parentElement;
+                    skillPill.style.opacity = '0';
+                    setTimeout(() => {
+                        skillPill.remove();
+                    }, 300);
+                });
+
+                skillsContainer.insertBefore(newSkill, this);
+            }
+        });
+
+
+
+        document.getElementById('cancelBtn').addEventListener('click', function () {
+            if (confirm("Are you sure you want to cancel? Any unsaved changes will be lost.")) {
+                window.location.href = "#";
+            }
+        });
+
+        document.getElementById('deleteBtn').addEventListener('click', function () {
+            if (confirm("Are you sure you want to delete this project? This action cannot be undone.")) {
+                alert("Project deleted. Redirecting...");
+                // In a real app, you would delete the project and redirect
+                window.location.href = "#";
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | CollabWorks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .border-b {
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .max-w-7xl {
+            max-width: 1200px;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .h-20 {
+            height: 80px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+
+        .w-10 {
+            width: 40px;
+        }
+
+        .h-10 {
+            height: 40px;
+        }
+
+        .bg-blue-600 {
+            background-color: #3a86ff;
+        }
+
+        .rounded-xl {
+            border-radius: 12px;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .shadow-blue-200 {
+            box-shadow: 0 10px 15px -3px rgba(58, 134, 255, 0.2);
+        }
+
+        .transform {
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        }
+
+        .rotate-3 {
+            transform: rotate(3deg);
+        }
+
+        .hover\:rotate-0:hover {
+            transform: rotate(0deg);
+        }
+
+        .transition-transform {
+            transition-property: transform;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .font-black {
+            font-weight: 900;
+        }
+
+        .tracking-tighter {
+            letter-spacing: -0.05em;
+        }
+
+        .text-slate-800 {
+            color: #1e293b;
+        }
+
+        .text-blue-600 {
+            color: #3a86ff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .md\:flex {
+            display: flex;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+            text-decoration: none;
+        }
+
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-slate-500 {
+            color: #64748b;
+        }
+
+        .hover\:text-slate-800:hover {
+            color: #1e293b;
+        }
+
+        .transition-colors {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .nav-link-active {
+            color: #3a86ff;
+        }
+
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #3a86ff;
+            border-radius: 1px;
+        }
+
+        .sm\:block {
+            display: block;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .text-slate-600 {
+            color: #475569;
+        }
+
+        .hover\:text-blue-600:hover {
+            color: #3a86ff;
+        }
+
+        .bg-slate-900 {
+            background-color: #1e293b;
+        }
+
+        .px-5 {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+
+        .py-2\.5 {
+            padding-top: 0.625rem;
+            padding-bottom: 0.625rem;
+        }
+
+        .rounded-xl {
+            border-radius: 12px;
+        }
+
+        .hover\:bg-slate-800:hover {
+            background-color: #334155;
+        }
+
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .active\:scale-95:active {
+            transform: scale(0.95);
+        }
+
+        .edit-profile-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            margin-top: 100px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .form-tabs {
+            display: flex;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-tab {
+            padding: 20px 30px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .form-tab:hover {
+            color: #3a86ff;
+            background: #f1f5f9;
+        }
+
+        .form-tab.active {
+            color: #3a86ff;
+            border-bottom-color: #3a86ff;
+            background: white;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+        }
+
+        .form-section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-title i {
+            color: #3a86ff;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .form-label span {
+            color: #dc2626;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background-color: white;
+            color: #475569;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #3a86ff;
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+
+        .form-help {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        .skills-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            min-height: 100px;
+        }
+
+        .skills-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .skills-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .add-skill-btn {
+            background: #3a86ff;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-skill-btn:hover {
+            background: #2563eb;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: #eff6ff;
+            color: #3a86ff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #cfe2ff;
+        }
+
+        .remove-skill {
+            background: none;
+            border: none;
+            color: #3a86ff;
+            cursor: pointer;
+            padding: 0;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .remove-skill:hover {
+            background: #3a86ff;
+            color: white;
+        }
+
+        .file-upload-container {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-upload-container:hover {
+            border-color: #3a86ff;
+            background: #f1f5f9;
+        }
+
+        .file-upload-icon {
+            font-size: 48px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        .file-upload-text {
+            color: #475569;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .file-upload-hint {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .file-upload-btn {
+            background: #3a86ff;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-upload-btn:hover {
+            background: #2563eb;
+        }
+
+        .file-preview {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-icon {
+            color: #3a86ff;
+            font-size: 24px;
+        }
+
+        .file-details h4 {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .file-details p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .remove-file {
+            background: #fee2e2;
+            color: #dc2626;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .remove-file:hover {
+            background: #fecaca;
+        }
+
+        /* Social Links */
+        .social-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .social-input-group {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .social-prefix {
+            padding: 14px 16px;
+            background: #e2e8f0;
+            color: #475569;
+            font-weight: 600;
+            font-size: 14px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .social-input {
+            flex: 1;
+            border: none;
+            padding: 14px;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .social-input:focus {
+            outline: none;
+        }
+
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 40px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .cancel-btn {
+            background: white;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cancel-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .save-btn {
+            background: #3a86ff;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .save-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .progress-step.active .step-number {
+            background: #3a86ff;
+            color: white;
+        }
+
+        .progress-step.completed .step-number {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-label {
+            font-weight: 600;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .progress-step.active .step-label {
+            color: #3a86ff;
+        }
+
+        .progress-step.completed .step-label {
+            color: #10b981;
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 3px;
+            background: #e2e8f0;
+            max-width: 100px;
+        }
+
+        .progress-step.completed .progress-line {
+            background: #10b981;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-content {
+                padding: 25px;
+            }
+
+            .form-tabs {
+                flex-direction: column;
+            }
+
+            .form-tab {
+                padding: 15px;
+                border-bottom: 1px solid #e2e8f0;
+                border-left: 3px solid transparent;
+            }
+
+            .form-tab.active {
+                border-left-color: #3a86ff;
+                border-bottom-color: #e2e8f0;
+            }
+
+            .progress-indicator {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .progress-line {
+                display: none;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .cancel-btn,
+            .save-btn {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .hidden.md\:flex {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .edit-profile-container {
+                padding: 20px 15px;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-input-container {
+                flex-direction: column;
+            }
+
+            .add-skill-btn {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200 transform rotate-3 hover:rotate-0 transition-transform cursor-pointer"
+                    onclick="window.location.href='index.html'">
+                    <i class="fas fa-users-rays text-xl"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tighter text-slate-800">
+                    Collab<span class="text-blue-600">Works</span>
+                </span>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="{% url 'core:home' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">Home</a>
+                <a href="{% url 'project-list' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">Discover</a>
+
+                {% if user.role == 'student' %}
+                <a href="{% url 'all_applications' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">My
+                    Projects</a>
+                {% endif %}
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center cursor-pointer">
+                        <i class="fas fa-user text-blue-600"></i>
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <a href="{% url 'accounts:logout' %}" class="nav-menu a">
+                        </i> Logout
+                    </a>
+                </div>
+            </div>
+    </header>
+
+    <!-- Edit Profile Container -->
+    <div class="edit-profile-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Edit Profile</h1>
+                <p class="page-subtitle">Update your profile information to showcase your skills and experience</p>
+            </div>
+            <a href="{% url 'accounts:profile' %}" class="back-link" style="color: rgb(10, 10, 242);">
+                    <i class="fas fa-arrow-left"></i> Back to Profile
+                </a>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-step completed">
+                <div class="step-number">1</div>
+                <div class="step-label">Basic Info</div>
+                <div class="progress-line"></div>
+            </div>
+            <div class="progress-step active">
+                <div class="step-number">2</div>
+                <div class="step-label">Academic Details</div>
+                <div class="progress-line"></div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">3</div>
+                <div class="step-label">Skills & Bio</div>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Form Tabs -->
+            <div class="form-tabs">
+                <div class="form-tab active" onclick="switchTab('basic')">
+                    <i class="fas fa-user-circle"></i> Basic Information
+                </div>
+                <div class="form-tab" onclick="switchTab('academic')">
+                    <i class="fas fa-graduation-cap"></i> Academic Details
+                </div>
+                {% if user.role == 'student' %}
+                <div class="form-tab" onclick="switchTab('skills')">
+                    <i class="fas fa-tools"></i> Skills & Bio
+                </div>
+                {% endif %}
+                <div class="form-tab" onclick="switchTab('social')">
+                    <i class="fas fa-link"></i> Social Links
+                </div>
+            </div>
+
+            <!-- Form Content -->
+            {% if request.user.role|lower == 'student' %}
+            <div class="form-content">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Basic Information Tab -->
+                    <div id="basic-tab" class="tab-content active">
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-user"></i>
+                                Personal Information
+                            </h3>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">
+                                        Full Name <span>*</span>
+                                    </label>
+                                    <input type="text" name="name" class="form-input" placeholder="Enter your full name"
+                                        value="{{ student_profile.user }}">
+                                    <div class="form-help">Your name as you want it to appear on your profile</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="form-label">
+                                        Email Address <span>*</span>
+                                    </label>
+                                    <input type="email" name="email" class="form-input" placeholder="Enter your email"
+                                        value="{{ student_profile.email }}">
+                                    <div class="form-help">This email will be used for notifications</div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" name="phone_num" class="form-input"
+                                        placeholder="Enter your phone number" value="{{ student_profile.phone_num }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" name="location" id="location" class="form-input"
+                                        placeholder="City, Country" value="{{ student_profile.location }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-briefcase"></i>
+                                Professional Information
+                            </h3>
+
+                            <div class="form-group">
+                                <label for="description" class="form-label">Professional Description</label>
+                                <textarea id="description" class="form-textarea"
+                                    placeholder="Briefly describe your professional background and interests">Passionate Computer Science student specializing in AI and machine learning. Interested in interdisciplinary projects that combine technology with social impact.</textarea>
+                                <div class="form-help">This will appear at the top of your profile</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Details Tab -->
+                    <div id="academic-tab" class="tab-content">
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-university"></i>
+                                College Information
+                            </h3>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="college" class="form-label">
+                                        College/University <span>*</span>
+                                    </label>
+                                    <input type="text" id="college" name="college" class="form-input"
+                                        placeholder="Enter your college/university name"
+                                        value="{{ student_profile.college }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="department" class="form-label">
+                                        Department <span>*</span>
+                                    </label>
+                                    <input type="text" id="department" name="department" class="form-input"
+                                        placeholder="Enter your department" value="{{ student_profile.department }}">
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="branch" class="form-label">
+                                        Branch/Specialization <span>*</span>
+                                    </label>
+                                    <input type="text" id="branch" name="branch" class="form-input"
+                                        placeholder="Enter your branch or specialization"
+                                        value="{{ student_profile.branch }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="year" class="form-label">
+                                        Year <span>*</span>
+                                    </label>
+                                    <select id="year" name="year" class="form-select">
+                                        <option value="">Select year</option>
+                                        <option value="1" selected>{{ student_profile.year }}</option>
+                                        <option value="2">2nd Year</option>
+                                        <option value="3">3rd Year</option>
+                                        <option value="4">4th Year</option>
+                                        <option value="5">5th Year</option>
+                                        <option value="grad">Graduate Student</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="department-detail" class="form-label">Department Details</label>
+                                <textarea id="department-detail" class="form-textarea"
+                                    placeholder="Additional details about your department, courses, or research focus">Focusing on Machine Learning, Natural Language Processing, and Computer Vision. Currently researching ethical AI applications for social good projects.</textarea>
+                                <div class="form-help">Share specific details about your academic focus</div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-file-pdf"></i>
+                                Resume/CV
+                            </h3>
+
+                            <div class="form-group">
+                                <label class="form-label">Upload Resume</label>
+                                <div class="file-upload-container"
+                                    onclick="document.getElementById('resume-upload').click()">
+                                    <div class="file-upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="file-upload-text">
+                                        Click to upload or drag and drop
+                                    </div>
+                                    <div class="file-upload-hint">
+                                        PDF, DOC, DOCX (Max 5MB)
+                                    </div>
+
+                                    <input type="file" id="resume-upload" name="resume" accept=".pdf,.doc,.docx"
+                                        style="display: none;">
+                                </div>
+                                {% if student_profile.resume %}
+                                <div class="file-preview">
+                                    <div class="file-info">
+                                        <div class="file-icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </div>
+                                        <div class="file-details">
+                                            <h4>{{ student_profile.resume.name|cut:"resumes/" }}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills & Bio Tab -->
+                    <div id="skills-tab" class="tab-content">
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-brain"></i>
+                                Skills & Expertise
+                            </h3>
+
+                            <div class="form-group">
+                                <label class="form-label">Add Skills</label>
+                                <div class="skills-container">
+                                    <div class="skills-input-container">
+                                        <input type="text" id="skill-input" class="skills-input"
+                                            placeholder="Enter a skill (e.g., Python, Machine Learning, Teamwork)">
+                                        <button type="button" class="add-skill-btn" onclick="addSkill()">
+                                            Add
+                                        </button>
+                                    </div>
+
+                                    <div class="skills-list" id="skills-list">
+                                        {% for s in student_profile.skills.all %}
+                                        <span class="discipline-tag">{{ s.name }}
+                                            <input name="skills" value="{{ s.name }}">
+                                            <button type="button" class="remove-skill">×</button>
+
+                                        </span>
+                                        {% empty %}
+                                        <span>No skills specified.</span>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                                <div class="form-help">Press Enter or click Add to include skills. Click × to remove.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-edit"></i>
+                                Bio & Introduction
+                            </h3>
+
+                            <div class="form-group">
+                                <label for="bio" class="form-label">Detailed Bio</label>
+                                <textarea id="bio" name="bio" class="form-textarea"
+                                    placeholder="Write a detailed bio about yourself, your interests, and your goals">{{  student_profile.bio }}</textarea>
+                                <div class="form-help">This detailed bio will appear on your portfolio page</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links Tab -->
+                    <div id="social-tab" class="tab-content">
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-share-alt"></i>
+                                Social & Professional Links
+                            </h3>
+
+                            <div class="social-links-grid">
+                                <div class="form-group">
+                                    <label for="github" class="form-label">GitHub</label>
+                                    <div class="social-input-group">
+                                        <div class="social-prefix">github.com/</div>
+                                        <input type="text" name="github" id="github" class="social-input"
+                                            placeholder="username" value="{{ student_profile.github }}">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="linkedin" class="form-label">LinkedIn</label>
+                                    <div class="social-input-group">
+                                        <div class="social-prefix">linkedin.com/in/</div>
+                                        <input type="text" name="linkedin" id="linkedin" class="social-input"
+                                            placeholder="profile-id" value="{{ student_profile.linkedin }}">
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                    <label for="portfolio" class="form-label">Personal Website/Portfolio</label>
+                                    <input type="url" id="portfolio" class="form-input"
+                                        placeholder="https://your-portfolio.com" value="https://alexjohnson.dev">
+                                </div>
+
+                                 -->
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="cancelEdit()">
+                    Cancel
+                </button>
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+            </form>
+        </div>
+        {% endif %}
+
+         {% if request.user.role|lower == 'club' or request.user.role|lower == 'faculty' %}
+            <div class="form-content">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Basic Information Tab -->
+                    <div id="basic-tab" class="tab-content active">
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-user"></i>
+                                Personal Information
+                            </h3>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">
+                                        Full Name <span>*</span>
+                                    </label>
+                                    <input type="text" name="name" class="form-input" placeholder="Enter your full name"
+                                        value="{{ org_profile.user }}">
+                                    <div class="form-help">Your name as you want it to appear on your profile</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="form-label">
+                                        Email Address <span>*</span>
+                                    </label>
+                                    <input type="email" name="email" class="form-input" placeholder="Enter your email"
+                                        value="{{org_profile.email}}">
+                                    <div class="form-help">This email will be used for notifications</div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" name="phone_num" class="form-input"
+                                        placeholder="Enter your phone number" value="{{ org_profile.phone_num }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" name="location" id="location" class="form-input"
+                                        placeholder="City, Country" value="{{ org_profile.location }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-briefcase"></i>
+                                Professional Information
+                            </h3>
+
+                            <div class="form-group">
+                                <label for="description" class="form-label">Professional Description</label>
+                                <textarea id="description" name="description" class="form-textarea"
+                                    placeholder="Briefly describe your professional background and interests">{{org_profile.description}}</textarea>
+                                <div class="form-help">This will appear at the top of your profile</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Details Tab -->
+                    <div id="academic-tab" class="tab-content">
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-university"></i>
+                                College Information
+                            </h3>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="college" class="form-label">
+                                        College/University <span>*</span>
+                                    </label>
+                                    <input type="text" id="college" name="college" class="form-input"
+                                        placeholder="Enter your college/university name"
+                                        value="{{ org_profile.college }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="department" class="form-label">
+                                        Department <span>*</span>
+                                    </label>
+                                    <input type="text" id="department" name="department" class="form-input"
+                                        placeholder="Enter your department" value="{{ org_profile.department }}">
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="branch" class="form-label">
+                                        Branch/Specialization <span>*</span>
+                                    </label>
+                                    <input type="text" id="branch" name="branch" class="form-input"
+                                        placeholder="Enter your branch or specialization"
+                                        value="{{ org_profile.branch }}">
+                                </div>
+
+                               
+                            </div>
+
+                        </div>
+
+                        
+                    </div>
+                    
+
+                    <!-- Social Links Tab -->
+                    <div id="social-tab" class="tab-content">
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-share-alt"></i>
+                                Social & Professional Links
+                            </h3>
+
+                            <div class="social-links-grid">
+                                <div class="form-group">
+                                    <label for="github" class="form-label">GitHub</label>
+                                    <div class="social-input-group">
+                                        <div class="social-prefix">github.com/</div>
+                                        <input type="text" name="github" id="github" class="social-input"
+                                            placeholder="username" value="{{ org_profile.github }}">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="linkedin" class="form-label">LinkedIn</label>
+                                    <div class="social-input-group">
+                                        <div class="social-prefix">linkedin.com/in/</div>
+                                        <input type="text" name="linkedin" id="linkedin" class="social-input"
+                                            placeholder="profile-id" value="{{ org_profile.linkedin }}">
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                    <label for="portfolio" class="form-label">Personal Website/Portfolio</label>
+                                    <input type="url" id="portfolio" class="form-input"
+                                        placeholder="https://your-portfolio.com" value="https://alexjohnson.dev">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="twitter" class="form-label">Twitter/X</label>
+                                    <div class="social-input-group">
+                                        <div class="social-prefix">twitter.com/</div>
+                                        <input type="text" id="twitter" class="social-input" placeholder="username"
+                                            value="alexjohnson">
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="cancelEdit()">
+                    Cancel
+                </button>
+                <button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+
+
+
+    <script>
+
+        document.getElementById("github").addEventListener("dblclick", function () {
+            const username = this.value.trim();
+            if (username) {
+                window.open("https://github.com/" + username, "_blank");
+            }
+        });
+
+        document.getElementById("linkedin").addEventListener("dblclick", function () {
+            const username = this.value.trim();
+            if (username) {
+                window.open("https://linkedin.com/in/" + username, "_blank");
+            }
+        });
+        // Initialize skills array
+        let skills = [
+            "{{ student_profile.skills.all|join:'", "' }}"
+
+        ];
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Update tabs
+            document.querySelectorAll('.form-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.form-tab').forEach(tab => {
+                if (tab.textContent.includes(tabName.charAt(0).toUpperCase() + tabName.slice(1))) {
+                    tab.classList.add('active');
+                }
+            });
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Update progress indicator
+            updateProgressIndicator(tabName);
+        }
+
+        // Update progress indicator
+        function updateProgressIndicator(activeTab) {
+            const steps = document.querySelectorAll('.progress-step');
+            steps.forEach(step => step.classList.remove('active', 'completed'));
+
+            switch (activeTab) {
+                case 'basic':
+                    steps[0].classList.add('active');
+                    break;
+                case 'academic':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('active');
+                    break;
+                case 'skills':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('completed');
+                    steps[2].classList.add('active');
+                    break;
+                case 'social':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('completed');
+                    steps[2].classList.add('completed');
+                    break;
+            }
+        }
+
+        // Skills functionality
+        function initializeSkills() {
+            const skillsList = document.getElementById('skills-list');
+            skillsList.innerHTML = '';
+
+            skills.forEach(skill => {
+                const skillElement = document.createElement('div');
+                skillElement.className = 'skill-tag';
+                skillElement.innerHTML = `
+                     <span>${skill}</span>
+                <input type="hidden" name="skills" value="${skill}">
+                <button type="button" class="remove-skill" aria-label="Remove skill">
+                    ×
+                </button>
+                `;
+                skillsList.appendChild(skillElement);
+            });
+        }
+
+        function addSkill() {
+            const skillInput = document.getElementById('skill-input');
+            const skill = skillInput.value.trim();
+
+            if (skill && !skills.includes(skill)) {
+                skills.push(skill);
+                initializeSkills();
+                skillInput.value = '';
+            } else if (skills.includes(skill)) {
+                alert('Skill already added!');
+            }
+        }
+
+        function removeSkill(skillToRemove) {
+            skills = skills.filter(skill => skill !== skillToRemove);
+            initializeSkills();
+        }
+
+        // Handle Enter key in skills input
+        document.getElementById('skill-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addSkill();
+            }
+        });
+
+        // File upload functionality
+        document.getElementById('resume-upload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Validate file size (5MB max)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size must be less than 5MB');
+                    this.value = '';
+                    return;
+                }
+
+                // Validate file type
+                const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Please upload a PDF, DOC, or DOCX file');
+                    this.value = '';
+                    return;
+                }
+
+                // Show preview
+                const preview = document.getElementById('resume-preview');
+                const fileName = file.name;
+                const fileSize = (file.size / (1024 * 1024)).toFixed(2);
+                const uploadDate = new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+
+                preview.querySelector('h4').textContent = fileName;
+                preview.querySelector('p').textContent = `${fileSize} MB • Uploaded on ${uploadDate}`;
+                preview.style.display = 'flex';
+            }
+        });
+
+        function removeResume() {
+            document.getElementById('resume-upload').value = '';
+            document.getElementById('resume-preview').style.display = 'none';
+        }
+
+        // Form submission
+        function saveProfile() {
+            // Collect all form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value,
+                college: document.getElementById('college').value,
+                department: document.getElementById('department').value,
+                branch: document.getElementById('branch').value,
+                year: document.getElementById('year').value,
+                departmentDetail: document.getElementById('department-detail').value,
+                bio: document.getElementById('bio').value,
+                skills: skills,
+                github: document.getElementById('github').value,
+                linkedin: document.getElementById('linkedin').value,
+                portfolio: document.getElementById('portfolio').value,
+                twitter: document.getElementById('twitter').value,
+                resume: document.getElementById('resume-upload').files[0] ? document.getElementById('resume-upload').files[0].name : null
+            };
+
+            // Basic validation
+            if (!formData.name || !formData.email || !formData.college || !formData.department || !formData.branch || !formData.year) {
+                alert('Please fill in all required fields (marked with *)');
+                return;
+            }
+
+            // Show loading state
+            const saveBtn = document.querySelector('.save-btn');
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            saveBtn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                alert('Profile updated successfully!');
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+
+                // In a real app, you would redirect to the profile page
+                // window.location.href = '/profile/';
+            }, 1500);
+
+            // For demo purposes, log the data
+            console.log('Profile data to be saved:', formData);
+        }
+
+        function cancelEdit() {
+            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.location.href = 'portfolio.html';
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeSkills();
+            updateProgressIndicator('basic');
+
+            // Initialize resume preview if already uploaded
+            if (document.getElementById('resume-upload').files.length > 0) {
+                document.getElementById('resume-preview').style.display = 'flex';
+            }
+        });
+
+        // Tab navigation with keyboard
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case '1':
+                        e.preventDefault();
+                        switchTab('basic');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        switchTab('academic');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        switchTab('skills');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        switchTab('social');
+                        break;
+                    case 's':
+                        if (e.shiftKey) {
+                            e.preventDefault();
+                            saveProfile();
+                        }
+                        break;
+                }
+            }
+        });
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

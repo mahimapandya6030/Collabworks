@@ -1,0 +1,840 @@
+{% extends 'core/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CollabHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+{% block style %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .border-b {
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .max-w-7xl {
+            max-width: 1200px;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .h-20 {
+            height: 80px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .gap-8 {
+            gap: 2rem;
+        }
+
+        .w-10 {
+            width: 40px;
+        }
+
+        .h-10 {
+            height: 40px;
+        }
+
+        .bg-blue-600 {
+            background-color: #3a86ff;
+        }
+
+        .rounded-xl {
+            border-radius: 12px;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .shadow-blue-200 {
+            box-shadow: 0 10px 15px -3px rgba(58, 134, 255, 0.2);
+        }
+
+        .transform {
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        }
+
+        .rotate-3 {
+            transform: rotate(3deg);
+        }
+
+        .hover\:rotate-0:hover {
+            transform: rotate(0deg);
+        }
+
+        .transition-transform {
+            transition-property: transform;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .font-black {
+            font-weight: 900;
+        }
+
+        .tracking-tighter {
+            letter-spacing: -0.05em;
+        }
+
+        .text-slate-800 {
+            color: #1e293b;
+        }
+
+        .text-blue-600 {
+            color: #3a86ff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .md\:flex {
+            display: flex;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-slate-500 {
+            color: #64748b;
+        }
+
+        .hover\:text-slate-800:hover {
+            color: #1e293b;
+        }
+
+        .transition-colors {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .nav-link-active {
+            color: #3a86ff;
+        }
+
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #3a86ff;
+            border-radius: 1px;
+        }
+
+        .sm\:block {
+            display: block;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .text-slate-600 {
+            color: #475569;
+        }
+
+        .hover\:text-blue-600:hover {
+            color: #3a86ff;
+        }
+
+        .bg-slate-900 {
+            background-color: #1e293b;
+        }
+
+        .px-5 {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+
+        .py-2\.5 {
+            padding-top: 0.625rem;
+            padding-bottom: 0.625rem;
+        }
+
+        .rounded-xl {
+            border-radius: 12px;
+        }
+
+        .hover\:bg-slate-800:hover {
+            background-color: #334155;
+        }
+
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .active\:scale-95:active {
+            transform: scale(0.95);
+        }
+
+        /* Main Login Container */
+        .main-content {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .login-container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 600px;
+            background-color: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Left Panel - Branding */
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #3a86ff 0%, #6a9eff 100%);
+            color: white;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-logo {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo i {
+            margin-right: 15px;
+            font-size: 40px;
+        }
+
+        .brand-tagline {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .features {
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 20px;
+        }
+
+        .feature-text h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .feature-text p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .pattern {
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+
+        /* Right Panel - Login Form */
+        .right-panel {
+            flex: 1;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 40px;
+        }
+
+        .form-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            font-size: 16px;
+            color: #64748b;
+        }
+
+        .login-form {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 18px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            font-size: 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background-color: white;
+            color: #475569;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3a86ff;
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .password-toggle:hover {
+            color: #64748b;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid #cbd5e1;
+            cursor: pointer;
+        }
+
+        .remember-me label {
+            font-size: 14px;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #3a86ff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #3a86ff;
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(58, 134, 255, 0.2);
+        }
+
+        .submit-btn:hover {
+            background-color: #2667d6;
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: #94a3b8;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #e2e8f0;
+        }
+
+        .divider span {
+            padding: 0 15px;
+            font-size: 14px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .social-btn.google:hover {
+            color: #DB4437;
+            border-color: #DB4437;
+        }
+
+        .social-btn.github:hover {
+            color: #333;
+            border-color: #333;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 30px;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .register-link a {
+            color: #3a86ff;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .login-container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+
+            .left-panel {
+                padding: 40px 30px;
+            }
+
+            .right-panel {
+                padding: 40px 30px;
+            }
+
+            .features {
+                display: none;
+            }
+
+            .hidden.md\:flex {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-panel {
+                padding: 30px 20px;
+            }
+
+            .right-panel {
+                padding: 30px 20px;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+
+            .remember-forgot {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .brand-logo {
+                font-size: 28px;
+            }
+
+            .form-header h1 {
+                font-size: 28px;
+            }
+        }
+
+        /* Animation for form inputs */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .form-group:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .form-group:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .remember-forgot {
+            animation: fadeIn 0.5s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .submit-btn {
+            animation: fadeIn 0.5s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    {% block header %}
+    
+     <header class="fixed top-0 left-0 right-0  z-50 glass border-b border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200 transform rotate-3 hover:rotate-0 transition-transform cursor-pointer">
+                    <i class="fas fa-users-rays text-xl"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tighter text-slate-800">
+                    Collab<span class="text-blue-600">Works</span>
+                </span>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="{% url 'core:home' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">Home</a>
+                <a href="{% url 'project-list' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">Explore
+                    projects</a>
+                <a href="categories"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">Portfolio</a>
+                <a href="{% url 'accounts:profile' %}"
+                    class="nav-link relative py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors">Profile</a>
+            </nav>
+
+
+            <div class="flex items-center gap-4">
+                
+                <button onclick="window.location.href=this.dataset.url" data-url="{% url 'accounts:signup' %}"
+                    class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-slate-800 transition-all shadow-md active:scale-95">Get
+                    Started</button>
+            </div>
+        </div>
+    </header>
+
+    {% endblock %}
+    <!-- Main Login Content -->
+     {% block content %}
+
+    <div class="main-content">
+        <div class="login-container">
+            <!-- Left Panel - Branding -->
+            <div class="left-panel">
+                <div class="brand-logo">
+                    <i class="fas fa-project-diagram"></i>
+                    CollabHub
+                </div>
+                <div class="brand-tagline">Interdisciplinary Projects Platform</div>
+
+                <div class="features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Collaborate Across Disciplines</h4>
+                            <p>Connect with students from different fields to work on innovative projects.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Discover Opportunities</h4>
+                            <p>Find projects that match your skills and academic interests.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Build Your Portfolio</h4>
+                            <p>Gain practical experience and showcase your collaborative work.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pattern"></div>
+            </div>
+
+            <!-- Right panel - login -->
+            <div class="right-panel">
+                <div class="form-header">
+                    <h1>Welcome Back</h1>
+                    <p>Sign in to your CollabHub account to continue</p>
+                </div>
+
+                <form class="login-form" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <div class="input-group">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="text" name="username" class="form-input" placeholder="Enter your name"
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" name="password" class="form-input"
+                                placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+
+                    <div class="divider">
+                        <span>Or continue with</span>
+                    </div>
+
+                    <div class="social-login">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        <button type="button" class="social-btn github">
+                            <i class="fab fa-github"></i> GitHub
+                        </button>
+                    </div>
+
+                    <div class="register-link">
+                        Don't have an account?
+                        <a href="{% url 'accounts:signup' %}">Sign up for CollabHub</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+    {% block footer%}
+{% endblock%}
+   
+</body>
+
+</html>
+

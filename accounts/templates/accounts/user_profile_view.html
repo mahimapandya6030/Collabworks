@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - CollabWorks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+     
+
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            overflow-y: auto;
+            width: 260px;
+            background: linear-gradient(180deg, #0f172a, #020617);
+            color: #cbd5e1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-area {
+            padding: 24px 20px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .logo i {
+            color: #3b82f6;
+            font-size: 24px;
+        }
+
+        .tagline {
+            font-size: 13px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex-grow: 1;
+        }
+
+        .nav-menu li {
+            margin-bottom: 4px;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-menu a:hover {
+            background-color: #1e293b;
+            color: white;
+        }
+
+        .nav-menu a.active {
+            background-color: #1e293b;
+            color: white;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .nav-menu i {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .profile-section {
+            padding: 20px;
+            border-top: 1px solid #1e293b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .profile-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+            margin-left: 260px;
+        }
+
+
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 220px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+
+            .nav-menu {
+                display: flex;
+                padding: 0;
+                justify-content: center;
+            }
+
+            .nav-menu li {
+                margin-bottom: 0;
+                flex-grow: 1;
+            }
+
+            .nav-menu a {
+                justify-content: center;
+                padding: 15px 10px;
+                border-left: none;
+                border-bottom: 4px solid transparent;
+            }
+
+            .nav-menu a.active {
+                border-left: none;
+                border-bottom: 4px solid #3b82f6;
+            }
+
+            .logo-area,
+            .profile-section {
+                text-align: center;
+            }
+
+            .profile {
+                justify-content: center;
+            }
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #0f172a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title h2 {
+            font-weight: 600;
+        }
+
+        .edit-btn {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .edit-btn:hover {
+            background-color: #2563eb;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 600;
+            margin-right: 20px;
+        }
+
+        .user-details h3 {
+            font-size: 22px;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+
+        .user-details p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #e2e8f0;
+            margin: 25px 0;
+        }
+
+        .data-item {
+            margin-bottom: 22px;
+        }
+
+        .data-label {
+            font-size: 14px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .data-value {
+            font-size: 16px;
+            color: #0f172a;
+            padding: 10px 0;
+        }
+
+        .data-value.empty {
+            color: #94a3b8;
+            font-style: italic;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .data-value.empty:hover {
+            color: #3b82f6;
+        }
+
+        .portfolio-summary {
+            display: flex;
+            align-items: center;
+            background-color: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .portfolio-icon {
+            width: 50px;
+            height: 60px;
+            background-color: #dbeafe;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #1d4ed8;
+            font-size: 20px;
+        }
+
+        .portfolio-info h4 {
+            font-size: 18px;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+
+        .portfolio-info p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .recent-projects {
+            margin-top: 25px;
+        }
+
+        .recent-projects h3 {
+            font-size: 18px;
+            color: #0f172a;
+            margin-bottom: 15px;
+        }
+
+        .project-card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+            transition: box-shadow 0.2s;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .project-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .project-status {
+            background-color: #d1fae5;
+            color: #065f46;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .project-status.recruiting {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .footer-note strong {
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .footer-note p {
+            margin-top: 8px;
+        }
+
+        .empty-state {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background-color: #f1f5f9;
+            color: #475569;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .skill-tag.empty {
+            background-color: transparent;
+            color: #94a3b8;
+            padding: 6px 0;
+            cursor: pointer;
+        }
+
+        .skill-tag.empty:hover {
+            color: #3b82f6;
+        }
+
+        .url-link {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .url-link:hover {
+            text-decoration: underline;
+        }
+
+        .url-link.empty {
+            color: #94a3b8;
+            pointer-events: none;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .url-link.empty:hover {
+            color: #3b82f6;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo">
+                <i class="fas fa-project-diagram"></i>
+                CollabWorks
+            </div>
+            <div class="tagline">Interdisciplinary Projects</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="{% url 'project-list' %}" class="active"><i class="fas fa-compass"></i> Discover Projects</a>
+            </li>
+
+            {% if user.role == 'student'%}
+            <li><a href="{% url 'all_applications' %}"><i class="fas fa-folder-open"></i> My Projects</a></li>
+            {% endif %}
+
+            {% if user.role != 'student' %}
+            <li><a href="#"><i class="fas fa-plus-circle"></i> Create Project</a></li>
+            {% endif %}
+        </ul>
+
+        <div class="profile-section">
+            <div class="profile">
+                <div class="profile-img">{{ profile_user.username|slice:":2"|upper }}</div>
+                <div class="profile-name">{{profile_user.username}}</div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="header">
+                <h1>My Profile</h1>
+                <p>
+                    {% if viewed_role == 'student' %}
+                    Showcase your skills and academic background
+                    {% else %}
+                    Manage your organization profile
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="profile-container">
+                <!-- Left: profile information -->
+                {% if target_role  == 'student' and student_profile %}
+                <div class="left-column">
+                    <div class="section">
+                        <div class="section-title">
+                            <h2>Student Information</h2>
+                    
+                        </div>
+
+                        <div class="profile-info">
+                            <div class="avatar">{{ profile_user.username|slice:":2"|upper }}</div>
+                            <div class="user-details">
+                                <h3>{{profile_user.username}}</h3>
+                                <p>{{ student_profile.email }}</p>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="data-item">
+                            <div class="data-label">Department</div>
+                            <div class="data-value empty">{{student_profile.department|default:"not set" }}</div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">Bio</div>
+                            <div class="data-value empty">{{ student_profile.bio|truncatewords:25|default:"No bio yet"}}
+                                </div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">Skills</div>
+                            <div class="skills-container">
+                                {% for s in student_profile.skills.all %}
+                                <div class="data-value empty">{{ s.name }}</div>
+                                {% empty %}
+                                <span class="skill-tag empty">{{ student_profile.skills.all.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">College/Uni</div>
+                            <div class="data-value empty">{{ student_profile.college|default:"Not added yet" }}</div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">Branch</div>
+                            <div class="data-value empty">{{ student_profile.branch|default:"Not added yet" }}</div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">Phone no.</div>
+                            <div class="data-value empty">{{ student_profile.phone_num|default:"Not added yet" }}</div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">Location</div>
+                            <div class="data-value empty">{{ student_profile.location|default:"Not added yet" }}</div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">Portfolio URL</div>
+                            <div class="data-value">
+                                <a href="{% url 'profiles:portfolio' profile_user.username  %}" class="url-link">{{profile_user.username}}  Portfolio</a>
+                            </div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">LinkedIn URL</div>
+                            <div class="data-value">
+                                <a href="#" class="url-link empty">Not set</a>
+                            </div>
+                        </div>
+
+                        <div class="data-item">
+                            <div class="data-label">Resume</div>
+                            {% if student_profile.resume %}
+                            <a href="{{ student_profile.resume.url }}" download>
+                                <h4>{{ student_profile.resume.name|cut:"resumes/" }}</h4>
+
+                            </a>
+                            {% else %}
+                            <p>No resume uploaded</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right : portfolio -->
+                <div class="right-column">
+                    
+
+                        <div class="portfolio-summary">
+                            <div class="portfolio-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="portfolio-info">
+                                <h4>Project: Participated</h4>
+                                <p>Track and showcase your project involvement</p>
+                            </div>
+                        </div>
+
+                        <div class="recent-projects">
+                            <h3>Recent Projects</h3>
+                            {% for app in participated_obj %}
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <div class="project-title">{{ app.project.title }}</div>
+                                    <div class="project-status recruiting">{{ app.status }}</div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="empty-state">
+                                No other recent projects to display
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %}
+
+                <!-- organization profile status -->
+                {% if target_role  != 'student' and org_profile %}
+                <div class="left-column">
+                    <div class="section">
+                        <div class="section-title">
+                            <h2>Organization Information</h2>
+        
+                        </div>
+
+                        <div class="profile-info">
+                            <div class="avatar">{{ profile_user.username|slice:":2"|upper }}</div>
+                            <div class="user-details">
+                                <h3>{{profile_user.username}}</h3>
+                                <p>{{ profile_user.email}}</p>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+
+                        <div class="data-item">
+                            <div class="data-label">Name</div>
+                            <div class="data-value empty">{{org_profile.name|default:"not set" }}</div>
+                        </div>
+
+                        <div class="divider"></div>
+
+
+
+                        <div class="data-item">
+                            <div class="data-label">Department</div>
+                            <div class="data-value empty">{{org_profile.department|default:"not set" }}</div>
+                        </div>
+
+
+                        <div class="divider"></div>
+
+                        <div class="data-item">
+                            <div class="data-label">Description</div>
+                            <div class="data-value empty">{{org_profile.description|default:"not set" }}</div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="data-item">
+                            <div class="data-label">Phone no.</div>
+                            <div class="data-value empty">{{ org_profile.phone_num|default:"Not added yet" }}</div>
+                        </div>
+
+                        <div class="divider"></div>
+
+
+                        <div class="data-item">
+                            <div class="data-label">Branch</div>
+                            <div class="data-value empty">{{org_profile.branch|default:"not set" }}</div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="data-item">
+                            <div class="data-label">College</div>
+                            <div class="data-value empty">{{org_profile.college|default:"not set" }}</div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="data-item">
+                            <div class="data-label">Location</div>
+                            <div class="data-value empty">{{org_profile.location|default:"not set" }}</div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="data-item">
+                            <div class="data-label">Github</div>
+                            {% if org_profile.github %}
+                            <a href="{{ org_profile.github }}" download>
+                                <h4>{{ org_profile.github|cut:"github/" }}</h4>
+
+                            </a>
+                            {% else %}
+                            <p>No github link added yet.</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+                {% endif%}
+                <div class="right-column">
+                    {% if viewed_role != 'student' and org_profile %}
+
+                    <div class="section">
+                       
+
+                        <div class="portfolio-summary">
+                            <div class="portfolio-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="portfolio-info">
+                                <h4>Project: Created By: {{org_profile.name}}</h4>
+                                <p>Track and showcase your project involvement</p>
+                            </div>
+                        </div>
+
+                        <div class="recent-projects">
+                            <h3>Recent Projects</h3>
+                            {% if projects %}
+                            {% for p in projects %}
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <div class="project-title">{{p.title}}</div>
+                                    <div class="project-status recruiting">{{p.description}}</div>
+                                </div>
+
+
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="empty-state">
+                                No other recent projects to display
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %}
+
+
+                {% if not student_profile and not org_profile %}
+                <div class="section">
+                    <p>No profile found. Please complete signup.</p>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <div class="footer-note">
+            <strong>{{ profile_user.username }}</strong>
+            <p>Set your discipline to get personalized project recommendations</p>
+        </div>
+
+        <script>
+            // Sidebar profile click
+            document.querySelector('.profile').addEventListener('click', function () {
+                // Set "Discover Projects" as active
+                navLinks.forEach(l => l.classList.remove('active'));
+                document.querySelector('.nav-menu a').classList.add('active');
+
+                // Reset to profile page
+                document.querySelector('.header h1').textContent = 'My Profile';
+                document.querySelector('.header p').textContent = 'Showcase your skills and academic background';
+            });
+
+            // Example of adding skills dynamically
+            const skillsContainer = document.querySelector('.skills-container');
+            const emptySkillTag = document.querySelector('.skill-tag.empty');
+
+            // Remove empty state when clicking on skills section
+            document.querySelector('.data-item:nth-child(4)').addEventListener('click', function (e) {
+                if (e.target.classList.contains('empty')) {
+                    emptySkillTag.remove();
+
+                    // Add some example skills
+                    const exampleSkills = ['Machine Learning', 'Web Design', 'Data Analysis', 'UI/UX'];
+
+                    exampleSkills.forEach(skill => {
+                        const skillTag = document.createElement('span');
+                        skillTag.className = 'skill-tag';
+                        skillTag.textContent = skill;
+                        skillTag.addEventListener('click', function () {
+                            this.remove();
+                        });
+                        skillsContainer.appendChild(skillTag);
+                    });
+
+                    // Add a message about clicking to edit
+                    const editHint = document.createElement('div');
+                    editHint.style.fontSize = '12px';
+                    editHint.style.color = '#64748b';
+                    editHint.style.marginTop = '8px';
+                    editHint.innerHTML = 'Click on a skill to remove it. <span style="color:#3b82f6;cursor:pointer">Add more</span>';
+
+                    editHint.querySelector('span').addEventListener('click', function () {
+                        const newSkill = prompt('Enter a new skill:');
+                        if (newSkill && newSkill.trim()) {
+                            const skillTag = document.createElement('span');
+                            skillTag.className = 'skill-tag';
+                            skillTag.textContent = newSkill.trim();
+                            skillTag.addEventListener('click', function () {
+                                this.remove();
+                            });
+                            skillsContainer.appendChild(skillTag);
+                        }
+                    });
+
+                    this.appendChild(editHint);
+                }
+            });
+
+            document.querySelector('.data-item:nth-child(3) .data-value').addEventListener('click', function () {
+                if (this.classList.contains('empty')) {
+                    const discipline = prompt('Enter your discipline(s) (comma separated):', 'Computer Science, Media Studies');
+                    if (discipline && discipline.trim()) {
+                        this.classList.remove('empty');
+                        this.textContent = discipline.trim();
+                        this.style.color = '#0f172a';
+
+                        // Update footer note
+                        document.querySelector('.footer-note p').textContent = 'Your discipline has been set. Check out personalized project recommendations.';
+                    }
+                }
+            });
+
+            // Make bio clickable to set it
+            document.querySelector('.data-item:nth-child(4) .data-value').addEventListener('click', function () {
+                if (this.classList.contains('empty')) {
+                    const bio = prompt('Enter your bio:', 'Passionate about interdisciplinary projects combining technology and design.');
+                    if (bio && bio.trim()) {
+                        this.classList.remove('empty');
+                        this.textContent = bio.trim();
+                        this.style.color = '#0f172a';
+                    }
+                }
+            });
+
+            // Make URLs clickable to set them
+            document.querySelectorAll('.url-link.empty').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const label = this.closest('.data-item').querySelector('.data-label').textContent;
+                    const placeholder = label.includes('Portfolio') ? 'https://yourportfolio.com' : 'https://linkedin.com/in/yourprofile';
+                    const url = prompt(`Enter your ${label}:`, placeholder);
+
+                    if (url && url.trim()) {
+                        this.classList.remove('empty');
+                        this.textContent = url.trim();
+                        this.href = url.trim().startsWith('http') ? url.trim() : 'https://' + url.trim();
+                        this.target = '_blank';
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>

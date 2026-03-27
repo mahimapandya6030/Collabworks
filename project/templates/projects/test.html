@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollabHub | Interdisciplinary Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar styling */
+        .sidebar {
+            width: 250px;
+            background-color: #fff;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #3a86ff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: #3a86ff;
+        }
+        
+        .tagline {
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        
+        .nav-menu li {
+            margin-bottom: 25px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #495057;
+            font-size: 17px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-menu a:hover {
+            background-color: #f1f3f5;
+            color: #3a86ff;
+        }
+        
+        .nav-menu a.active {
+            background-color: #e7f2ff;
+            color: #3a86ff;
+            font-weight: 600;
+        }
+        
+        .nav-menu i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .profile-section {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .profile:hover {
+            background-color: #e9ecef;
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #3a86ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        
+        .profile-name {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #212529;
+        }
+        
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 10px 20px;
+            width: 400px;
+        }
+        
+        .search-icon {
+            color: #adb5bd;
+            margin-right: 12px;
+        }
+        
+        .search-input {
+            border: none;
+            outline: none;
+            font-size: 16px;
+            width: 100%;
+            color: #495057;
+        }
+        
+        .search-input::placeholder {
+            color: #adb5bd;
+        }
+        
+        /* Filters section */
+        .filters-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            margin-bottom: 35px;
+        }
+        
+        .filters-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 20px;
+        }
+        
+        .filter-group {
+            margin-bottom: 25px;
+        }
+        
+        .filter-group-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 12px;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 15px;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-option:hover {
+            background-color: #e9ecef;
+        }
+        
+        .filter-option.selected {
+            background-color: #3a86ff;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .filter-option input {
+            margin-right: 8px;
+        }
+        
+        .disciplines-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .discipline-tag {
+            background-color: #e7f2ff;
+            color: #3a86ff;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Projects grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .project-status {
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .status-recruiting {
+            background-color: #38b000;
+        }
+        
+        .status-in-progress {
+            background-color: #ff9e00;
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        
+        .project-description {
+            font-size: 15px;
+            color: #6c757d;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .project-disciplines {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .discipline {
+            background-color: #f8f9fa;
+            color: #495057;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .project-location {
+            display: flex;
+            align-items: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .project-location i {
+            margin-right: 6px;
+        }
+        
+        .project-spots {
+            display: flex;
+            align-items: center;
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .more-disciplines {
+            background-color: #e9ecef;
+            color: #6c757d;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 20px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .logo-area {
+                display: flex;
+                align-items: center;
+            }
+            
+            .tagline {
+                margin-bottom: 0;
+                margin-left: 15px;
+            }
+            
+            .nav-menu {
+                display: flex;
+                margin-bottom: 0;
+            }
+            
+            .nav-menu li {
+                margin-bottom: 0;
+                margin-left: 20px;
+            }
+            
+            .profile-section {
+                margin-top: 0;
+                padding-top: 0;
+                border-top: none;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .main-content {
+                padding: 20px;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-container {
+                width: 100%;
+                margin-top: 15px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .logo-area {
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+            
+            .nav-menu {
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 15px;
+            }
+            
+            .nav-menu li {
+                margin-left: 0;
+            }
+            
+            .profile-section {
+                width: 100%;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo">
+                    <i class="fas fa-project-diagram"></i>
+                    CollabHub
+                </div>
+                <div class="tagline">Interdisciplinary Projects</div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#" class="active"><i class="fas fa-compass"></i> Discover Projects</a></li>
+                <li><a href="#"><i class="fas fa-folder-open"></i> My Projects</a></li>
+                <li><a href="#"><i class="fas fa-plus-circle"></i> Create Project</a></li>
+            </ul>
+            
+            <div class="profile-section">
+                <div class="profile">
+                    <div class="profile-img">JS</div>
+                    <div class="profile-name">My Profile</div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1 class="page-title">Discover Projects</h1>
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search projects by title or description...">
+                </div>
+            </div>
+            
+            <!-- Filters Section -->
+            <section class="filters-section">
+                <h2 class="filters-title">Filters</h2>
+                
+                <div class="filter-group">
+                    <h3 class="filter-group-title">Status</h3>
+                    <div class="filter-options">
+                        <div class="filter-option selected">
+                            <input type="checkbox" id="recruiting" checked>
+                            <label for="recruiting">Recruiting</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="in-progress">
+                            <label for="in-progress">In Progress</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="completed">
+                            <label for="completed">Completed</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h3 class="filter-group-title">Disciplines Needed</h3>
+                    <div class="disciplines-list">
+                        <div class="discipline-tag">Computer Science</div>
+                        <div class="discipline-tag">Media Studies</div>
+                        <div class="discipline-tag">Fine Arts</div>
+                        <div class="discipline-tag">Environmental Science</div>
+                        <div class="discipline-tag">Economics</div>
+                        <div class="discipline-tag">Sociology</div>
+                        <div class="discipline-tag">Engineering</div>
+                        <div class="discipline-tag">Psychology</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                <!-- Project Card 1 -->
+                <div class="project-card">
+                    <div class="project-status status-recruiting">Recruiting</div>
+                    <div class="project-content">
+                        <h3 class="project-title">AI-Powered Community Art Installation</h3>
+                        <p class="project-description">Create an interactive art installation that uses machine learning to generate visual patterns based on community input and environmental data.</p>
+                        
+                        <div class="project-disciplines">
+                            <div class="discipline">Computer Science</div>
+                            <div class="discipline">Media Studies</div>
+                            <div class="discipline">Fine Arts</div>
+                        </div>
+                        
+                        <div class="project-meta">
+                            <div class="project-spots">5 spots left</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Card 2 -->
+                <div class="project-card">
+                    <div class="project-status status-recruiting">Recruiting</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Sustainable Campus Initiative Research</h3>
+                        <p class="project-description">Interdisciplinary research project examining the social, economic and environmental impacts of sustainability initiatives on university campuses.</p>
+                        
+                        <div class="project-disciplines">
+                            <div class="discipline">Environmental Science</div>
+                            <div class="discipline">Economics</div>
+                            <div class="discipline">Sociology</div>
+                            <div class="more-disciplines">+1 more</div>
+                        </div>
+                        
+                        <div class="project-meta">
+                            <div class="project-location">
+                                <i class="fas fa-map-marker-alt"></i> In person
+                            </div>
+                            <div class="project-spots">5 spots left</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Card 3 (Additional card for better layout) -->
+                <div class="project-card">
+                    <div class="project-status status-in-progress">In Progress</div>
+                    <div class="project-content">
+                        <h3 class="project-title">Health Data Visualization Platform</h3>
+                        <p class="project-description">Developing an interactive platform to visualize public health data for policymakers and researchers with intuitive dashboards.</p>
+                        
+                        <div class="project-disciplines">
+                            <div class="discipline">Data Science</div>
+                            <div class="discipline">Public Health</div>
+                            <div class="discipline">Design</div>
+                        </div>
+                        
+                        <div class="project-meta">
+                            <div class="project-spots">2 spots left</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Add interactivity to filter options
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                
+                if (checkbox.checked) {
+                    this.classList.add('selected');
+                } else {
+                    this.classList.remove('selected');
+                }
+            });
+        });
+        
+        // Add hover effect to project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.08)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+            });
+        });
+    </script>
+</body>
+</html>
